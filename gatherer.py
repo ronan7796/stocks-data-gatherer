@@ -1,4 +1,5 @@
 import time
+import os
 
 import pandas as pd
 from selenium import webdriver
@@ -62,12 +63,13 @@ def get_data(driver, needed_label=NEEDED_LABEL):
 
 def main():
     stock_symbols = get_user_input()
+    cwd = os.getcwd()
     options = webdriver.ChromeOptions()
     options.add_experimental_option('excludeSwitches', ['enable-logging'])
-    driver = webdriver.Chrome(
-        r'C:\Users\Administrator\Downloads\New folder/chromedriver.exe', options=options)
+    driver_path = cwd + r'/chromedriver.exe'
+    driver = webdriver.Chrome(driver_path, options=options)
 
-    print('============START GETTING DATA============')
+    print('==> START GETTING DATA')
 
     # This maximize the driver window to see the result easier
     driver.maximize_window()
@@ -142,10 +144,10 @@ def main():
             result = pd.concat([df1, df2, df3, df4], axis=1).transpose()
             result.to_excel(writer, sheet_name=f'{stock_symbol}')
 
-            print(f'{stock_symbol} SHEET GENERATED')
+            print(f'==> {stock_symbol} SHEET GENERATED')
 
     writer.save()
-    print('============FINISH============')
+    print('==> FINISH')
 
 
 if __name__ == '__main__':

@@ -1,1 +1,2 @@
-# stocks-data-gatherer
+A simple script for gathering stock information on website using webscraping with Selenium
+
